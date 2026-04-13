@@ -148,7 +148,7 @@ async function sendMessage() {
     currentAbortController = null;
 
     if (err.name !== 'AbortError') {
-      addMessage('ai', "Connection issue — falling back to offline knowledge base. Ask me anything about disaster survival.", 'knowledge-base');
+      addMessage('ai', "🚨 <b>System Error:</b> Could not connect to the local server. The AI backend is offline or restarting. Please ensure the server is running and try again.", 'system');
     }
   }
 }

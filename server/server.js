@@ -599,3 +599,5 @@ app.listen(PORT, () => {
   `);
 });
 
+// Export the app for Vercel Serverless Functions
+export default app;
