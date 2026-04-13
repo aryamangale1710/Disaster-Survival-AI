@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SurviveAI — Emergency survival intelligence powered by Gemma 4. Real-time disaster guidance for floods, earthquakes, fires and more.">
+  <meta name="theme-color" content="#060c16">
+  <title>SurviveAI — Disaster Survival Assistant</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════ LOADING SCREEN ═══════════ -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-icon">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay-1"></div>
+        <div class="pulse-ring delay-2"></div>
+        <span class="loading-emoji">🌊</span>
+      </div>
+      <h1 class="loading-title">SurviveAI</h1>
+      <p class="loading-subtitle">Initializing Emergency Intelligence...</p>
+      <div class="loading-bar">
+        <div class="loading-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ APP SHELL ═══════════ -->
+  <div class="app-shell">
+
+    <!-- ═══════════ SIDEBAR ═══════════ -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <div class="logo-mark">🌊</div>
+        <div class="logo-text-group">
+          <span class="logo-name">Survive<span class="logo-accent">AI</span></span>
+          <span class="logo-tagline">Emergency Intelligence</span>
+        </div>
+      </div>
+
+      <!-- Network / AI Status -->
+      <div class="sidebar-status">
+        <div id="network-status" class="net-status online">
+          <span class="net-dot"></span>
+          <span class="net-label" id="net-label">Connected</span>
+        </div>
+        <div class="ai-pill" id="ai-pill">
+          <span class="ai-dot"></span>
+          <span id="ai-label">Gemma 4</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav" id="nav-tabs">
+        <p class="nav-section-label">Navigation</p>
+        <button class="nav-item active" data-page="chat" id="nav-chat">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </span>
+          <span class="nav-label">Chat Assistant</span>
+          <span class="nav-badge live">Live</span>
+        </button>
+        <button class="nav-item" data-page="firstaid" id="nav-firstaid">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </span>
+          <span class="nav-label">First Aid</span>
+        </button>
+        <button class="nav-item" data-page="evacuation" id="nav-evacuation">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+          </span>
+          <span class="nav-label">Evacuation Plan</span>
+        </button>
+        <button class="nav-item" data-page="sos" id="nav-sos">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </span>
+          <span class="nav-label">SOS & Signals</span>
+          <span class="nav-badge danger">Alert</span>
+        </button>
+        <button class="nav-item" data-page="voice" id="nav-voice">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+          </span>
+          <span class="nav-label">Voice Mode</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="sidebar-stats-mini">
+          <div class="stat-mini">
+            <span class="stat-mini-val">30+</span>
+            <span class="stat-mini-key">Disasters</span>
+          </div>
+          <div class="stat-mini-divider"></div>
+          <div class="stat-mini">
+            <span class="stat-mini-val">WHO</span>
+            <span class="stat-mini-key">Certified</span>
+          </div>
+          <div class="stat-mini-divider"></div>
+          <div class="stat-mini">
+            <span class="stat-mini-val">24/7</span>
+            <span class="stat-mini-key">Offline</span>
+          </div>
+        </div>
+        <div class="sidebar-info">
+          <button class="sidebar-map-btn" id="btn-offline-map" title="Offline Map">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            Offline Map
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="main-content" id="app-main">
+
+      <!-- ════════ PAGE: CHAT ════════ -->
+      <section id="page-chat" class="page active">
+        <!-- Page Header -->
+        <div class="page-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">Emergency AI Assistant</h1>
+            <p class="topbar-sub">Real-time disaster survival guidance</p>
+          </div>
+          <div class="topbar-right">
+            <div class="topbar-chips">
+              <span class="chip chip-blue">
+                <span class="chip-dot"></span>
+                Active Connection
+              </span>
+              <span class="gemma-badge" id="gemma-badge">
+                <span class="gemma-dot"></span>
+                Gemma 4
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card stat-card--blue">
+            <div class="stat-icon">🌐</div>
+            <div class="stat-info">
+              <span class="stat-val">30+</span>
+              <span class="stat-key">Disasters Covered</span>
+            </div>
+          </div>
+          <div class="stat-card stat-card--green">
+            <div class="stat-icon">📴</div>
+            <div class="stat-info">
+              <span class="stat-val">Ready</span>
+              <span class="stat-key">Offline Mode</span>
+            </div>
+          </div>
+          <div class="stat-card stat-card--amber">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-info">
+              <span class="stat-val">&lt;1s</span>
+              <span class="stat-key">Response Time</span>
+            </div>
+          </div>
+          <div class="stat-card stat-card--purple">
+            <div class="stat-icon">🤖</div>
+            <div class="stat-info">
+              <span class="stat-val">Gemma 4</span>
+              <span class="stat-key">AI Model</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <!-- Welcome message -->
+            <div class="welcome-text">
+              "Hey — I'm here to help. Ask me anything about staying safe."
+            </div>
+            
+            <div class="welcome-suggestions" id="welcome-suggestions">
+              <button class="suggestion-btn" data-message="What should I do during an earthquake?">What should I do during an earthquake?</button>
+              <button class="suggestion-btn" data-message="How do I perform CPR?">How do I perform CPR?</button>
+              <button class="suggestion-btn" data-message="My house is flooding — what now?">My house is flooding — what now?</button>
+              <button class="suggestion-btn" data-message="How to treat a burn?">How to treat a burn?</button>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="quick-actions" id="quick-actions">
+            <span class="quick-label">Quick actions:</span>
+            <div class="quick-chips">
+              <button class="quick-btn" data-message="I'm in an earthquake right now">🏚️ Earthquake</button>
+              <button class="quick-btn" data-message="There's flooding and water is rising">🌊 Flood</button>
+              <button class="quick-btn" data-message="There's a fire nearby, what should I do?">🔥 Fire</button>
+              <button class="quick-btn" data-message="Someone is injured and bleeding badly">🩸 Injury</button>
+              <button class="quick-btn" data-message="I need to perform CPR on someone">❤️ CPR</button>
+              <button class="quick-btn" data-message="How do I purify water for drinking?">💧 Water</button>
+              <button class="quick-btn" data-message="I need to build an emergency shelter">🏕️ Shelter</button>
+              <button class="quick-btn" data-message="How do I signal for rescue?">🆘 SOS</button>
+            </div>
+          </div>
+
+          <!-- Chat input -->
+          <div class="chat-input-container">
+            <div class="fast-mode-row">
+              <label class="toggle-label" for="chat-fast-mode">
+                <input type="checkbox" id="chat-fast-mode" class="toggle-input">
+                <span class="toggle-switch"></span>
+                <span class="toggle-text">Fast Mode</span>
+              </label>
+              <span class="fast-mode-hint">Uses preloaded offline knowledge</span>
+            </div>
+            <div class="chat-input-wrapper">
+              <textarea id="chat-input" class="chat-input" placeholder="Describe your emergency situation..." rows="1"></textarea>
+              <!-- Send button (visible by default) -->
+              <button id="chat-send" class="chat-send-btn" title="Send message">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+              <!-- Stop button (hidden by default, shown while AI is thinking) -->
+              <button id="chat-stop" class="chat-stop-btn" title="Stop response" style="display:none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/>
+                </svg>
+              </button>
+            </div>
+            <p class="chat-disclaimer">Powered by Gemma 4 · WHO/CRED knowledge base · Offline mode active</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ PAGE: FIRST AID ════════ -->
+      <section id="page-firstaid" class="page">
+        <div class="page-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">First Aid Guide</h1>
+            <p class="topbar-sub">Step-by-step emergency medical procedures</p>
+          </div>
+          <div class="topbar-right">
+            <span class="chip chip-red">🩹 Critical Procedures</span>
+          </div>
+        </div>
+        <div class="firstaid-grid" id="firstaid-grid">
+          <!-- Populated by JS -->
+        </div>
+        <!-- First aid detail modal -->
+        <div class="modal-overlay" id="firstaid-modal">
+          <div class="modal-content">
+            <button class="modal-close" id="firstaid-modal-close">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div id="firstaid-modal-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ PAGE: EVACUATION ════════ -->
+      <section id="page-evacuation" class="page">
+        <div class="page-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">Evacuation Center</h1>
+            <p class="topbar-sub">Disaster-specific evacuation plans and checklists</p>
+          </div>
+          <div class="topbar-right">
+            <span class="chip chip-amber">🗺️ Plan Now</span>
+          </div>
+        </div>
+        <div class="disaster-selector" id="disaster-selector">
+          <button class="disaster-btn" data-disaster="earthquake">
+            <span class="disaster-icon">🏚️</span>
+            <span class="disaster-name">Earthquake</span>
+          </button>
+          <button class="disaster-btn" data-disaster="flood">
+            <span class="disaster-icon">🌊</span>
+            <span class="disaster-name">Flood</span>
+          </button>
+          <button class="disaster-btn" data-disaster="fire">
+            <span class="disaster-icon">🔥</span>
+            <span class="disaster-name">Fire</span>
+          </button>
+          <button class="disaster-btn" data-disaster="hurricane">
+            <span class="disaster-icon">🌀</span>
+            <span class="disaster-name">Hurricane</span>
+          </button>
+          <button class="disaster-btn" data-disaster="tornado">
+            <span class="disaster-icon">🌪️</span>
+            <span class="disaster-name">Tornado</span>
+          </button>
+        </div>
+        <div class="evacuation-content" id="evacuation-content">
+          <div class="evac-placeholder">
+            <span class="evac-placeholder-icon">☝️</span>
+            <p>Select a disaster type above to get your personalized evacuation plan</p>
+          </div>
+        </div>
+        <div class="checklist-section" id="checklist-section" style="display:none;">
+          <h2 class="section-title">🎒 Evacuation Checklist</h2>
+          <div class="checklist" id="evacuation-checklist"></div>
+        </div>
+      </section>
+
+      <!-- ════════ PAGE: SOS ════════ -->
+      <section id="page-sos" class="page">
+        <div class="page-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">SOS & Emergency Signals</h1>
+            <p class="topbar-sub">Signal for rescue and emergency communication</p>
+          </div>
+          <div class="topbar-right">
+            <span class="chip chip-red pulse-chip">🆘 Emergency Tools</span>
+          </div>
+        </div>
+
+        <div class="sos-grid">
+          <!-- SOS Flashlight -->
+          <div class="sos-panel">
+            <div class="sos-panel-header">
+              <h2 class="section-title">📱 SOS Flashlight Signal</h2>
+              <p class="section-desc">Activates your screen as a Morse code SOS beacon</p>
+            </div>
+            <div class="sos-controls">
+              <button id="sos-flash-btn" class="sos-flash-btn">
+                <span class="sos-flash-icon">🔦</span>
+                <span>Start SOS Flash</span>
+              </button>
+              <button id="sos-sound-btn" class="sos-sound-btn">
+                <span class="sos-sound-icon">📢</span>
+                <span>SOS Audio Signal</span>
+              </button>
+            </div>
+            <div id="sos-flash-screen" class="sos-flash-screen" style="display:none;"></div>
+          </div>
+
+          <!-- Morse Code Reference -->
+          <div class="sos-panel">
+            <div class="sos-panel-header">
+              <h2 class="section-title">📡 Morse Code Reference</h2>
+            </div>
+            <div class="morse-display">
+              <div class="morse-sos">
+                <span class="morse-label">SOS</span>
+                <div class="morse-code">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                  <span class="morse-space"></span>
+                  <span class="dash"></span><span class="dash"></span><span class="dash"></span>
+                  <span class="morse-space"></span>
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <span class="morse-text">· · · — — — · · ·</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal Methods -->
+        <div class="signal-methods">
+          <div class="signal-section">
+            <h2 class="section-title">🔍 Visual Signals</h2>
+            <div class="signal-grid" id="visual-signals"></div>
+          </div>
+          <div class="signal-section">
+            <h2 class="section-title">🔊 Audio Signals</h2>
+            <div class="signal-grid" id="audio-signals"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ PAGE: VOICE ════════ -->
+      <section id="page-voice" class="page">
+        <div class="page-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">Voice Assistant</h1>
+            <p class="topbar-sub">Hands-free survival guidance for panic situations</p>
+          </div>
+          <div class="topbar-right">
+            <span class="chip chip-purple">🎙️ Voice Active</span>
+          </div>
+        </div>
+
+        <div class="voice-container">
+          <!-- Panic mode toggle -->
+          <div class="panic-mode-toggle">
+            <label class="toggle-label" for="panic-mode">
+              <input type="checkbox" id="panic-mode" class="toggle-input">
+              <span class="toggle-switch"></span>
+              <span class="toggle-text">Panic Mode</span>
+            </label>
+            <p class="panic-desc">Simplified commands, shorter responses, calming voice</p>
+          </div>
+
+          <!-- Voice visualization -->
+          <div class="voice-visual" id="voice-visual">
+            <div class="voice-waves" id="voice-waves">
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+              <div class="voice-bar"></div><div class="voice-bar"></div>
+            </div>
+            <button id="voice-btn" class="voice-btn">
+              <span class="voice-btn-icon">🎙️</span>
+            </button>
+            <p id="voice-status" class="voice-status">Tap to speak</p>
+          </div>
+
+          <!-- Voice response -->
+          <div class="voice-response" id="voice-response">
+            <div class="voice-response-placeholder">
+              <span>🎯</span>
+              <p>Voice responses will appear here</p>
+            </div>
+          </div>
+
+          <!-- Recent commands -->
+          <div class="voice-history" id="voice-history">
+            <h3 class="voice-history-title">Quick Voice Commands</h3>
+            <div class="voice-commands">
+              <button class="voice-cmd" data-cmd="I'm having an earthquake">🏚️ Earthquake help</button>
+              <button class="voice-cmd" data-cmd="Someone is not breathing">❤️ CPR guide</button>
+              <button class="voice-cmd" data-cmd="How do I stop severe bleeding">🩸 Stop bleeding</button>
+              <button class="voice-cmd" data-cmd="I need to find shelter">🏕️ Find shelter</button>
+              <button class="voice-cmd" data-cmd="How to signal for rescue">🆘 Signal rescue</button>
+              <button class="voice-cmd" data-cmd="Water is contaminated">💧 Purify water</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════ OFFLINE MAP MODAL ═══════════ -->
+  <div class="modal-overlay" id="map-modal">
+    <div class="modal-content modal-large">
+      <button class="modal-close" id="map-modal-close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <h2 class="modal-title">🗺️ Offline Map</h2>
+      <p class="modal-subtitle">Cached map tiles for offline navigation</p>
+      <div class="map-container" id="offline-map">
+        <div class="map-placeholder">
+          <div class="map-grid">
+            <canvas id="map-canvas" width="800" height="500"></canvas>
+          </div>
+          <div class="map-controls">
+            <button class="map-ctrl-btn" id="map-zoom-in">+</button>
+            <button class="map-ctrl-btn" id="map-zoom-out">−</button>
+            <button class="map-ctrl-btn" id="map-locate">📍</button>
+          </div>
+          <div class="map-legend">
+            <div class="legend-item"><span class="legend-dot safe"></span> Safe Zone</div>
+            <div class="legend-item"><span class="legend-dot danger"></span> Danger Zone</div>
+            <div class="legend-item"><span class="legend-dot shelter"></span> Shelter</div>
+            <div class="legend-item"><span class="legend-dot medical"></span> Medical</div>
+            <div class="legend-item"><span class="legend-dot water"></span> Water Source</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-info">
+        <div class="map-info-card">
+          <span>📍</span>
+          <div>
+            <strong>GPS Status</strong>
+            <p id="gps-status">Acquiring location...</p>
+          </div>
+        </div>
+        <div class="map-info-card">
+          <span>🧭</span>
+          <div>
+            <strong>Nearest Shelter</strong>
+            <p id="nearest-shelter">Calculating...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js" type="module"></script>
+</body>
+</html>
