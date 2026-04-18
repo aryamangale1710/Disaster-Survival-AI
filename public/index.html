@@ -96,6 +96,18 @@
 
       <!-- Sidebar Footer -->
       <div class="sidebar-footer">
+        <!-- EMERGENCY 1-TAP ACTIONS OVERLAY -->
+        <div class="emergency-actions-overlay" id="emergency-actions-overlay">
+          <button class="emerge-action-btn emerge-btn-ambulance" onclick="window.location.href='tel:108'" title="Call Ambulance (108)">
+            108
+          </button>
+          <button class="emerge-action-btn emerge-btn-location" onclick="alert('Location sharing would activate here.')" title="Send Location">
+            GPS
+          </button>
+          <button class="emerge-action-btn emerge-btn-cpr" onclick="alert('CPR Audio Guide would play here.')" title="Play CPR Audio Guide">
+            CPR
+          </button>
+        </div>
         <div class="sidebar-stats-mini">
           <div class="stat-mini">
             <span class="stat-mini-val">30+</span>
@@ -162,13 +174,7 @@
               <span class="stat-key">Offline Mode</span>
             </div>
           </div>
-          <div class="stat-card stat-card--amber">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-info">
-              <span class="stat-val">&lt;1s</span>
-              <span class="stat-key">Response Time</span>
-            </div>
-          </div>
+
           <div class="stat-card stat-card--purple">
             <div class="stat-icon">🤖</div>
             <div class="stat-info">
@@ -215,9 +221,8 @@
               <label class="toggle-label" for="chat-fast-mode">
                 <input type="checkbox" id="chat-fast-mode" class="toggle-input">
                 <span class="toggle-switch"></span>
-                <span class="toggle-text">Fast Mode</span>
+                <span class="toggle-text">Offline Mode</span>
               </label>
-              <span class="fast-mode-hint">Uses preloaded offline knowledge</span>
             </div>
             <div class="chat-input-wrapper">
               <textarea id="chat-input" class="chat-input" placeholder="Describe your emergency situation..." rows="1"></textarea>

@@ -604,7 +604,7 @@ body::before {
 /* ─── STATS ROW ─── */
 .stats-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 20px 32px 0;
   flex-shrink: 0;
@@ -1853,3 +1853,91 @@ body::before {
   .sos-grid,
   .signal-methods { padding-left: 16px; padding-right: 16px; }
 }
+
+/* ─── EMERGENCY MODE UI ─── */
+body.emergency-mode .sidebar,
+body.emergency-mode .page-topbar,
+body.emergency-mode .stats-row,
+body.emergency-mode .chat-disclaimer,
+body.emergency-mode .fast-mode-row {
+  display: none !important;
+}
+
+body.emergency-mode .main-content {
+  margin-left: 0 !important;
+  background-color: var(--surface-lowest);
+}
+
+body.emergency-mode .chat-container {
+  margin: 0;
+  border-radius: 0;
+}
+
+body.emergency-mode .message-body {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #fff;
+  font-weight: 500;
+}
+
+body.emergency-mode .message-name,
+body.emergency-mode .message-badge,
+body.emergency-mode .message-time {
+  font-size: 1rem;
+}
+
+body.emergency-mode .message-avatar {
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+}
+
+body.emergency-mode .chat-input {
+  font-size: 1.2rem;
+  padding: 16px;
+}
+
+/* 1-Tap Actions */
+.emergency-actions-overlay {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 0 16px 0;
+  background: transparent;
+  border-top: none;
+}
+
+.emerge-action-btn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  color: #fff;
+  transition: transform 0.2s;
+}
+
+.emerge-action-btn:active {
+  transform: scale(0.98);
+}
+
+.emerge-btn-ambulance {
+  background: var(--tertiary-container);
+  box-shadow: 0 4px 20px rgba(255, 108, 102, 0.4);
+}
+
+.emerge-btn-location {
+  background: var(--primary-container);
+}
+
+.emerge-btn-cpr {
+  background: var(--secondary-container);
+}
+

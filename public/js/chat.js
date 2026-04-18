@@ -193,7 +193,6 @@ async function apiCallWithAbort(endpoint, data, signal) {
 // TYPING INDICATOR WITH LIVE TIMER
 // ─────────────────────────────────────────────────────────────────────
 function showTyping() {
-  startTimer();
   const container = document.getElementById('chat-messages');
   const typingEl  = document.createElement('div');
   typingEl.id = 'typing-bubble';
@@ -206,7 +205,6 @@ function showTyping() {
         <span class="typing-dot"></span>
         <span class="typing-dot"></span>
         <span class="typing-text">Gemma 4 is thinking…</span>
-        <span class="thinking-timer-badge"><span id="thinking-timer">0.0</span>s</span>
       </div>
     </div>
   `;
@@ -245,6 +243,12 @@ function addMessage(role, content, source = 'knowledge-base') {
       </div>
     `;
   } else {
+    // Check for EMERGENCY_ON token
+    if (content.includes('[EMERGENCY_ON]')) {
+      document.body.classList.add('emergency-mode');
+      content = content.replace(/\[EMERGENCY_ON\]/g, '').trim();
+    }
+
     messageEl.innerHTML = `
       <div class="message-avatar">🌊</div>
       <div class="message-content">
