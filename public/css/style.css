@@ -187,7 +187,7 @@ body::before {
 /* ─── APP SHELL ─── */
 .app-shell {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   z-index: 1;
   overflow-x: hidden;
@@ -481,7 +481,7 @@ body::before {
 .main-content {
   margin-left: var(--sidebar-width);
   flex: 1;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   max-width: calc(100vw - var(--sidebar-width));
@@ -494,6 +494,8 @@ body::before {
   flex-direction: column;
   flex: 1;
   animation: page-enter 0.35s var(--ease);
+  min-height: 0;
+  overflow: hidden;
 }
 
 .page.active { display: flex; }

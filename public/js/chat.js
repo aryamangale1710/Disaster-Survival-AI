@@ -243,12 +243,6 @@ function addMessage(role, content, source = 'knowledge-base') {
       </div>
     `;
   } else {
-    // Check for EMERGENCY_ON token
-    if (content.includes('[EMERGENCY_ON]')) {
-      document.body.classList.add('emergency-mode');
-      content = content.replace(/\[EMERGENCY_ON\]/g, '').trim();
-    }
-
     messageEl.innerHTML = `
       <div class="message-avatar">🌊</div>
       <div class="message-content">
